@@ -1,0 +1,13 @@
+[Unit]
+Description=Tailscale Auto Connect
+After=tailscaled.service
+Wants=tailscaled.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/tailscale up --netfilter-mode=off --accept-dns=false --accept-routes=false
+ExecStop=/usr/bin/tailscale down
+
+[Install]
+WantedBy=multi-user.target
